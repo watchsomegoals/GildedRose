@@ -81,17 +81,17 @@ namespace GildedRose
 		[TestCase]
 		public void TestQualitySulfuras()
 		{
-			IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 7, Quality = 40 } };
+			IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 7, Quality = 80 } };
 			GildedRose app = new GildedRose(Items);
 			app.UpdateQuality();
-			Assert.AreEqual(40, Items[0].Quality);
+			Assert.AreEqual(80, Items[0].Quality);
 		}
 
 		//tests that the SellIn value of "Sulfuras, Hand of Ragnaros" does not decrease
 		[TestCase]
 		public void TestSellInSulfuras()
 		{
-			IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 10, Quality = 40 } };
+			IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 10, Quality = 80 } };
 			GildedRose app = new GildedRose(Items);
 			app.UpdateQuality();
 			Assert.AreEqual(10, Items[0].SellIn);
@@ -135,6 +135,16 @@ namespace GildedRose
 			GildedRose app = new GildedRose(Items);
 			app.UpdateQuality();
 			Assert.AreEqual(0, Items[0].Quality);
+		}
+
+		//tests that conjured items degrade twice as fast
+		[TestCase]
+		public void TestConjuredItems()
+        {
+			IList<Item> Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = 11, Quality = 12 } };
+			GildedRose app = new GildedRose(Items);
+			app.UpdateQuality();
+			Assert.AreEqual(10, Items[0].Quality);
 		}
 	}
 }
